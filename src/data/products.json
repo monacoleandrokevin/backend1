@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "title": "Camiseta Algodón",
+    "description": "Camiseta básica 100% algodón",
+    "code": "TSHIRT100",
+    "price": 3500,
+    "status": true,
+    "stock": 120,
+    "category": "indumentaria",
+    "thumbnails": ["img/camiseta1.png"]
+  },
+  {
+    "id": "2",
+    "title": "Pantalón Jogger",
+    "description": "Jogger deportivo con bolsillos",
+    "code": "JOGGER200",
+    "price": 6200,
+    "status": true,
+    "stock": 80,
+    "category": "indumentaria",
+    "thumbnails": ["img/jogger1.png"]
+  },
+  {
+    "id": "3",
+    "title": "Zapatillas Urbanas",
+    "description": "Zapatillas cómodas para uso diario",
+    "code": "SHOES300",
+    "price": 12500,
+    "status": true,
+    "stock": 45,
+    "category": "calzado",
+    "thumbnails": ["img/zapatillas1.png"]
+  },
+  {
+    "id": "4",
+    "title": "Campera Rompeviento",
+    "description": "Campera liviana, ideal para media estación",
+    "code": "JACKET400",
+    "price": 9800,
+    "status": true,
+    "stock": 30,
+    "category": "indumentaria",
+    "thumbnails": ["img/campera1.png"]
+  },
+  {
+    "id": "5",
+    "title": "Gorra Bordada",
+    "description": "Gorra con visera curva y logo bordado",
+    "code": "CAP500",
+    "price": 2100,
+    "status": true,
+    "stock": 100,
+    "category": "accesorios",
+    "thumbnails": ["img/gorra1.png"]
+  },
+  {
+    "id": "6",
+    "title": "Mochila Urbana",
+    "description": "Mochila con múltiples compartimientos",
+    "code": "BACKPACK600",
+    "price": 8900,
+    "status": true,
+    "stock": 60,
+    "category": "accesorios",
+    "thumbnails": ["img/mochila1.png"]
+  },
+  {
+    "id": "7",
+    "title": "Buzo Oversize",
+    "description": "Buzo de corte amplio, muy cómodo",
+    "code": "HOODIE700",
+    "price": 7500,
+    "status": true,
+    "stock": 40,
+    "category": "indumentaria",
+    "thumbnails": ["img/buzo1.png"]
+  },
+  {
+    "id": "8",
+    "title": "Short Deportivo",
+    "description": "Short de secado rápido",
+    "code": "SHORT800",
+    "price": 3000,
+    "status": true,
+    "stock": 90,
+    "category": "indumentaria",
+    "thumbnails": ["img/short1.png"]
+  },
+  {
+    "id": "9",
+    "title": "Camisa Leñadora",
+    "description": "Camisa a cuadros, ideal para otoño",
+    "code": "SHIRT900",
+    "price": 6700,
+    "status": true,
+    "stock": 25,
+    "category": "indumentaria",
+    "thumbnails": ["img/camisa1.png"]
+  },
+  {
+    "id": "10",
+    "title": "Medias Deportivas",
+    "description": "Pack de 3 pares de medias",
+    "code": "SOCKS1000",
+    "price": 1800,
+    "status": true,
+    "stock": 200,
+    "category": "accesorios",
+    "thumbnails": ["img/medias1.png"]
+  }
+]
