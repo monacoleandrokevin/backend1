@@ -1,0 +1,77 @@
+<!-- views/realTimeProducts.handlebars -->
+<h1 class="mb-4 text-success">Lista de productos en tiempo real</h1>
+
+<form id="formProducto" class="row g-3 mb-4">
+  <div class="col-md-4">
+    <input
+      type="text"
+      name="title"
+      class="form-control"
+      placeholder="Título"
+      required
+    />
+  </div>
+  <div class="col-md-4">
+    <input
+      type="text"
+      name="description"
+      class="form-control"
+      placeholder="Descripción"
+    />
+  </div>
+  <div class="col-md-4">
+    <input
+      type="text"
+      name="code"
+      class="form-control"
+      placeholder="Código"
+      required
+    />
+  </div>
+  <div class="col-md-3">
+    <input
+      type="number"
+      name="price"
+      class="form-control"
+      placeholder="Precio"
+      required
+    />
+  </div>
+  <div class="col-md-3">
+    <input
+      type="number"
+      name="stock"
+      class="form-control"
+      placeholder="Stock"
+      required
+    />
+  </div>
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="category"
+      class="form-control"
+      placeholder="Categoría"
+    />
+  </div>
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="thumbnails"
+      class="form-control"
+      placeholder="Thumbnail (opcional)"
+    />
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Agregar producto</button>
+  </div>
+</form>
+
+<hr />
+
+<ul id="listaProductos" class="list-group">
+  <!-- productos por socket -->
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/realtime.js"></script>
