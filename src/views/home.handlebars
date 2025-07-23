@@ -1,13 +1,53 @@
-<!-- views/home.handlebars -->
-<h1 class="mb-4 text-primary">Listado de productos (vista tradicional)</h1>
+<div class="container my-5">
+  <h1 class="mb-4 text-primary">🛍 Todos los productos</h1>
 
-<ul class="list-group">
-  {{#each productos}}
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <span><strong>{{title}}</strong> - ${{price}}</span>
-      <span class="badge bg-secondary">{{category}}</span>
-    </li>
-  {{/each}}
-</ul>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {{#each productos}}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <p><strong>Precio:</strong> ${{this.price}}</p>
+            <p><strong>Categoría:</strong> {{this.category}}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <a
+              href="/products/{{this._id}}"
+              class="btn btn-sm btn-outline-info"
+            >
+              🔎 Ver detalle
+            </a>
+
+            <form
+              method="POST"
+              action="/api/carts/66a0b11f14dcf68c41bdca88/product/{{this._id}}"
+            >
+              <button class="btn btn-sm btn-success">🛒 Agregar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="mt-4 d-flex justify-content-between">
+    {{#if hasPrevPage}}
+      <a href="/products?page={{prevPage}}" class="btn btn-outline-secondary">⬅
+        Página anterior</a>
+    {{else}}
+      <span></span>
+    {{/if}}
+
+    <span class="text-muted">Página {{page}} de {{totalPages}}</span>
+
+    {{#if hasNextPage}}
+      <a
+        href="/products?page={{nextPage}}"
+        class="btn btn-outline-secondary"
+      >Página siguiente ➡</a>
+    {{else}}
+      <span></span>
+    {{/if}}
+  </div>
+</div>

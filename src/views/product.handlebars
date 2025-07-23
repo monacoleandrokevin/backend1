@@ -1,0 +1,23 @@
+<div class="container my-5">
+  <h1 class="mb-4 text-primary">{{producto.title}}</h1>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-muted">Categoría: {{producto.category}}</h5>
+      <p class="card-text">{{producto.description}}</p>
+      <p><strong>Precio:</strong> ${{producto.price}}</p>
+      <p><strong>Stock:</strong> {{producto.stock}}</p>
+      <p><strong>Disponible:</strong>
+        {{#if producto.status}}Sí{{else}}No{{/if}}</p>
+
+      <form
+        action="/api/carts/66a0b11f14dcf68c41bdca88/product/{{producto._id}}"
+        method="POST"
+      >
+        <button class="btn btn-success mt-3">🛒 Agregar al carrito</button>
+      </form>
+
+      <a href="/products" class="btn btn-outline-secondary mt-3 ms-2">Volver</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{{! VISTA DEL CARRITO }}
+<h2 class="my-4">🛒 Carrito ID: {{carrito._id}}</h2>
+
+{{#if carrito.products.length}}
+  <table class="table table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Producto</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each carrito.products}}
+        <tr>
+          <td>{{this.product.title}}</td>
+          <td>{{this.product.category}}</td>
+          <td>${{this.product.price}}</td>
+          <td>{{this.quantity}}</td>
+          <td>${{multiply this.product.price this.quantity}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <div class="alert alert-info">El carrito está vacío.</div>
+{{/if}}

@@ -1,0 +1,71 @@
+<div class="container my-5">
+  <h1 class="mb-4 text-primary">🛒 Carrito</h1>
+
+  {{#if carrito.products.length}}
+    <ul class="list-group mb-4">
+      {{#each carrito.products}}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{this.product.title}}</strong> - ${{this.product.price}} x {{this.quantity}}
+            <div class="text-muted small">{{this.product.description}}</div>
+          </div>
+          <div>
+            <span class="badge bg-secondary me-3">Subtotal: ${{multiply this.product.price this.quantity}}</span>
+            <button class="btn btn-sm btn-danger" onclick="eliminarProducto('{{this.product._id}}')">🗑</button>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button class="btn btn-outline-danger" onclick="vaciarCarrito()">🧹 Vaciar carrito</button>
+      <div class="alert alert-success mb-0">
+        Total: $
+        {{
+          reduce carrito.products
+          (acc = 0) => acc + (this.product.price * this.quantity)
+        }}
+      </div>
+    </div>
+  {{else}}
+    <div class="alert alert-warning">El carrito está vacío</div>
+  {{/if}}
+
+  <a href="/products" class="btn btn-outline-primary mt-3">Volver a productos</a>
+</div>
+
+<script>
+  const cartId = "{{carrito._id}}";
+
+  async function eliminarProducto(productId) {
+    try {
+      const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        location.reload();
+      } else {
+        alert("No se pudo eliminar el producto");
+      }
+    } catch (err) {
+      alert("Error eliminando producto");
+    }
+  }
+
+  async function vaciarCarrito() {
+    if (!confirm("¿Estás seguro de vaciar el carrito completo?")) return;
+
+    try {
+      const res = await fetch(`/api/carts/${cartId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        location.reload();
+      } else {
+        alert("No se pudo vaciar el carrito");
+      }
+    } catch (err) {
+      alert("Error vaciando carrito");
+    }
+  }
+</script>
