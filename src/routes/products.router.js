@@ -66,6 +66,8 @@ router.get("/:pid", async (req, res) => {
 // POST /api/products/
 router.post("/", async (req, res) => {
   try {
+    console.log("BODY RECIBIDO:", req.body); // 👈 agregá esto
+
     const nuevo = await Product.create(req.body);
     res.status(201).json(nuevo);
   } catch (error) {

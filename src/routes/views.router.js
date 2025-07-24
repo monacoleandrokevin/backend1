@@ -4,6 +4,11 @@ import { Cart } from "../models/Cart.js";
 
 const router = Router();
 
+// Redirige a la vista principal
+router.get("/", (req, res) => {
+  res.redirect("/products");
+});
+
 // Vista paginada de productos con filtros
 router.get("/products", async (req, res) => {
   try {
