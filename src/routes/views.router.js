@@ -6,40 +6,41 @@ const router = Router();
 
 // Vista paginada de productos con filtros
 router.get("/products", async (req, res) => {
-  const { limit = 10, page = 1, sort, query } = req.query;
+  try {
+    const { limit = 10, page = 1, sort, query } = req.query;
 
-  const filter = {};
-  if (query) {
-    if (query === "true" || query === "false") {
-      filter.status = query === "true";
-    } else {
-      filter.category = query;
+    const filter = {};
+    if (query) {
+      if (query === "true" || query === "false") {
+        filter.status = query === "true";
+      } else {
+        filter.category = query;
+      }
     }
+
+    const options = {
+      page: parseInt(page),
+      limit: parseInt(limit),
+      lean: true,
+    };
+
+    if (sort === "asc") options.sort = { price: 1 };
+    if (sort === "desc") options.sort = { price: -1 };
+
+    const result = await Product.paginate(filter, options);
+
+    res.render("home", {
+      productos: result.docs,
+      page: result.page,
+      totalPages: result.totalPages,
+      hasPrevPage: result.hasPrevPage,
+      hasNextPage: result.hasNextPage,
+      prevPage: result.prevPage,
+      nextPage: result.nextPage,
+    });
+  } catch (error) {
+    res.status(500).send("Error al cargar productos");
   }
-
-  const options = {
-    page: parseInt(page),
-    limit: parseInt(limit),
-    lean: true,
-  };
-
-  if (sort === "asc") options.sort = { price: 1 };
-  else if (sort === "desc") options.sort = { price: -1 };
-
-  const result = await Product.paginate(filter, options);
-
-  res.render("home", {
-    productos: result.docs,
-    hasPrevPage: result.hasPrevPage,
-    hasNextPage: result.hasNextPage,
-    prevPage: result.prevPage,
-    nextPage: result.nextPage,
-    page: result.page,
-    totalPages: result.totalPages,
-    limit,
-    sort,
-    query,
-  });
 });
 
 // Vista tradicional de WebSocket
