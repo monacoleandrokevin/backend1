@@ -21,7 +21,7 @@
 
             <form
               method="POST"
-              action="/api/carts/66a0b11f14dcf68c41bdca88/product/{{this._id}}"
+              action="/api/carts/6882bc9c76c2ca959e4e0840/product/{{this._id}}"
             >
               <button class="btn btn-sm btn-success">🛒 Agregar</button>
             </form>
@@ -33,8 +33,9 @@
 
   <div class="mt-4 d-flex justify-content-between">
     {{#if hasPrevPage}}
-      <a href="/products?page={{prevPage}}" class="btn btn-outline-secondary">⬅
-        Página anterior</a>
+      <a href="/products?page={{prevPage}}" class="btn btn-outline-secondary">
+        ⬅ Página anterior
+      </a>
     {{else}}
       <span></span>
     {{/if}}
@@ -42,12 +43,28 @@
     <span class="text-muted">Página {{page}} de {{totalPages}}</span>
 
     {{#if hasNextPage}}
-      <a
-        href="/products?page={{nextPage}}"
-        class="btn btn-outline-secondary"
-      >Página siguiente ➡</a>
+      <a href="/products?page={{nextPage}}" class="btn btn-outline-secondary">
+        Página siguiente ➡
+      </a>
     {{else}}
       <span></span>
     {{/if}}
   </div>
 </div>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Script para interceptar los formularios -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => { const forms =
+  document.querySelectorAll("form[action^='/api/carts/']"); forms.forEach((form)
+  => { form.addEventListener("submit", async (e) => { e.preventDefault(); const
+  action = form.getAttribute("action"); try { const res = await fetch(action, {
+  method: "POST" }); const data = await res.json(); if (res.ok) { Swal.fire({
+  icon: "success", title: "Agregado al carrito", text: "El producto fue agregado
+  correctamente", timer: 2000, showConfirmButton: false, }); } else {
+  Swal.fire({ icon: "error", title: "Error", text: data.error || "No se pudo
+  agregar el producto", }); } } catch (err) { Swal.fire({ icon: "error", title:
+  "Error", text: "No se pudo conectar con el servidor", }); } }); }); });
+</script>
