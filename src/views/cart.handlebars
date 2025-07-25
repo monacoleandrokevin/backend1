@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="container my-5" data-cart-id="{{carrito._id}}">
   <h1 class="mb-4 text-primary">🛒 Carrito</h1>
 
   {{#if carrito.products.length}}
@@ -18,7 +18,6 @@
             <span class="badge bg-secondary me-3">
               Subtotal: ${{this.subtotal}}
             </span>
-            <!-- Botón de eliminar por producto -->
             <button
               class="btn btn-sm btn-danger"
               data-pid="{{this.product._id}}"
@@ -31,8 +30,7 @@
     </ul>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <!-- Botón de vaciar carrito -->
-      <button class="btn btn-outline-danger" id="vaciarCarritoBtn">
+      <button id="vaciarCarritoBtn" class="btn btn-outline-danger">
         🧹 Vaciar carrito
       </button>
       <div class="alert alert-success mb-0">
@@ -43,22 +41,10 @@
     <div class="alert alert-warning">El carrito está vacío</div>
   {{/if}}
 
-  <a href="/products" class="btn btn-outline-primary mt-3">⬅ Volver a productos</a>
+  <a href="/products" class="btn btn-outline-primary mt-3">Volver a productos</a>
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => { const cartId = "{{carrito._id}}";
-  // Botones de eliminar producto const eliminarBtns =
-  document.querySelectorAll(".btn-danger"); eliminarBtns.forEach((btn) => {
-  btn.addEventListener("click", async () => { const productId = btn.dataset.pid;
-  try { const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
-  method: "DELETE", }); if (res.ok) location.reload(); else alert("❌ No se pudo
-  eliminar el producto"); } catch (err) { alert("❌ Error eliminando producto");
-  } }); }); // Botón de vaciar carrito const vaciarBtn =
-  document.getElementById("vaciarCarritoBtn"); if (vaciarBtn) {
-  vaciarBtn.addEventListener("click", async () => { if (!confirm("¿Estás seguro
-  de vaciar el carrito completo?")) return; try { const res = await
-  fetch(`/api/carts/${cartId}`, { method: "DELETE", }); if (res.ok)
-  location.reload(); else alert("❌ No se pudo vaciar el carrito"); } catch
-  (err) { alert("❌ Error vaciando carrito"); } }); } });
+  window.cartId = "{{carrito._id}}";
 </script>
+<script src="/static/js/cart.js"></script>
