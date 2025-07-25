@@ -62,11 +62,31 @@ router.get("/products/:pid", async (req, res) => {
 
 // Vista del carrito
 router.get("/carts/:cid", async (req, res) => {
-  const carrito = await Cart.findById(req.params.cid)
-    .populate("products.product")
-    .lean();
-  if (!carrito) return res.status(404).send("Carrito no encontrado");
-  res.render("cart", { carrito });
+  try {
+    const carrito = await Cart.findById(req.params.cid)
+      .populate("products.product")
+      .lean();
+
+    if (!carrito) return res.status(404).send("Carrito no encontrado");
+
+    // Calcular subtotales y total general
+    carrito.products.forEach((p) => {
+      p.subtotal = p.product.price * p.quantity;
+    });
+
+    const total = carrito.products.reduce((acc, p) => acc + p.subtotal, 0);
+
+    // Renderizar con los datos calculados
+    res.render("cart", {
+      carrito: { ...carrito, total },
+      helpers: {
+        multiply: (a, b) => a * b,
+      },
+    });
+  } catch (error) {
+    console.error("Error al mostrar carrito:", error);
+    res.status(500).send("Error interno del servidor");
+  }
 });
 
 export default router;
