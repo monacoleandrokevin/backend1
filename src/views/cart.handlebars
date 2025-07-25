@@ -16,40 +16,49 @@
           </div>
           <div>
             <span class="badge bg-secondary me-3">
-              Subtotal: ${{multiply this.product.price this.quantity}}
+              Subtotal: ${{this.subtotal}}
             </span>
+            <!-- Botón de eliminar por producto -->
             <button
               class="btn btn-sm btn-danger"
-              onclick="eliminarProducto('{{this.product._id}}')"
-            >🗑</button>
-
+              data-pid="{{this.product._id}}"
+            >
+              🗑
+            </button>
           </div>
         </li>
       {{/each}}
     </ul>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <button class="btn btn-outline-danger" onclick="vaciarCarrito()">🧹 Vaciar
-        carrito</button>
+      <!-- Botón de vaciar carrito -->
+      <button class="btn btn-outline-danger" id="vaciarCarritoBtn">
+        🧹 Vaciar carrito
+      </button>
       <div class="alert alert-success mb-0">
-        Total: ${{carrito.total}}
+        <strong>Total: ${{carrito.total}}</strong>
       </div>
     </div>
   {{else}}
     <div class="alert alert-warning">El carrito está vacío</div>
   {{/if}}
 
-  <a href="/products" class="btn btn-outline-primary mt-3">Volver a productos</a>
+  <a href="/products" class="btn btn-outline-primary mt-3">⬅ Volver a productos</a>
 </div>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => { const cartId = "{{carrito._id}}";
-  window.eliminarProducto = async function (productId) { try { const res = await
-  fetch(`/api/carts/${cartId}/products/${productId}`, { method: "DELETE", }); if
-  (res.ok) { location.reload(); } else { alert("No se pudo eliminar el
-  producto"); } } catch (err) { alert("Error eliminando producto"); } };
-  window.vaciarCarrito = async function () { const confirmar = confirm("¿Estás
-  seguro de vaciar el carrito?"); if (!confirmar) return; try { const res =
-  await fetch(`/api/carts/${cartId}`, { method: "DELETE", }); if (res.ok) {
-  location.reload(); } else { alert("No se pudo vaciar el carrito"); } } catch
-  (err) { alert("Error vaciando carrito"); } }; });
+  // Botones de eliminar producto const eliminarBtns =
+  document.querySelectorAll(".btn-danger"); eliminarBtns.forEach((btn) => {
+  btn.addEventListener("click", async () => { const productId = btn.dataset.pid;
+  try { const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+  method: "DELETE", }); if (res.ok) location.reload(); else alert("❌ No se pudo
+  eliminar el producto"); } catch (err) { alert("❌ Error eliminando producto");
+  } }); }); // Botón de vaciar carrito const vaciarBtn =
+  document.getElementById("vaciarCarritoBtn"); if (vaciarBtn) {
+  vaciarBtn.addEventListener("click", async () => { if (!confirm("¿Estás seguro
+  de vaciar el carrito completo?")) return; try { const res = await
+  fetch(`/api/carts/${cartId}`, { method: "DELETE", }); if (res.ok)
+  location.reload(); else alert("❌ No se pudo vaciar el carrito"); } catch
+  (err) { alert("❌ Error vaciando carrito"); } }); } });
 </script>
